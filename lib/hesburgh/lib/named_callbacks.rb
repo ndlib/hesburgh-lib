@@ -6,7 +6,7 @@ module Hesburgh
         @callbacks = {}
       end
 
-      def method_missing(callback_name, *args, &block)
+      def method_missing(callback_name, *_args, &block)
         @callbacks[callback_name] = block
       end
 

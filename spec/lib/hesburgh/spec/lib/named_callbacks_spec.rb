@@ -5,7 +5,7 @@ module Hesburgh
   module Lib
     describe NamedCallbacks do
       let(:named_callback) { described_class.new }
-      let(:context) { [ ] }
+      let(:context) { Array.new }
       before do
         named_callback.my_named_callback { |*a| context.replace(a) }
       end
@@ -13,7 +13,7 @@ module Hesburgh
       describe "with a named callback" do
         let(:callback_name) { :my_named_callback }
         it 'calls the callback' do
-          named_callback.call(callback_name, 'a',:hello)
+          named_callback.call(callback_name, 'a', :hello)
           expect(context).to eq(['a', :hello])
         end
       end
@@ -21,7 +21,7 @@ module Hesburgh
       describe "with a named callback called by a string" do
         let(:callback_name) { 'my_named_callback' }
         it 'calls the callback' do
-          named_callback.call(callback_name, 'a',:hello)
+          named_callback.call(callback_name, 'a', :hello)
           expect(context).to eq(['a', :hello])
         end
       end

@@ -16,9 +16,10 @@ module Hesburgh
     # to the Command/Query separation principle.
     #
     class Runner
-      attr_reader :context
+      attr_accessor :context
+      protected :context
 
-      def self.run(context,*args,&block)
+      def self.run(context, *args, &block)
         new(context, &block).run(*args)
       end
 
@@ -33,14 +34,8 @@ module Hesburgh
         args
       end
 
-      def run(*args)
-        raise NotImplementedError.new("You must define #{self.class}#run")
-      end
-
-      protected
-
-      def context=(object)
-        @context = object
+      def run(*_args)
+        fail NotImplementedError, ("You must define #{self.class}#run")
       end
 
       private
