@@ -15,6 +15,7 @@ module Hesburgh
     # a separation of state change and response; a somewhat analogous separation
     # to the Command/Query separation principle.
     #
+    # @see Hesrbugh::Lib::MockRunner
     class Runner
       attr_accessor :context
       protected :context
