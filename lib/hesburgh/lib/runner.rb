@@ -17,16 +17,16 @@ module Hesburgh
     #
     # @see Hesrbugh::Lib::MockRunner
     class Runner
-      attr_accessor :context
-      protected :context
-
       def self.run(context, *args, &block)
         new(context, &block).run(*args)
       end
 
-      def initialize(context, collaborators = {})
-        @callbacks = collaborators.fetch(:callbacks) { default_callbacks }
-        self.context = context
+      attr_reader :context
+      protected :context
+
+      def initialize(context, callbacks: nil)
+        @callbacks = callbacks || default_callbacks
+        @context = context
         yield(@callbacks) if block_given?
       end
 

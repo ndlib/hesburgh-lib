@@ -6,7 +6,7 @@ module Hesburgh
     # @example
     #
     #   context = []
-    #   runner = MockRunner.new(run_with: :input, yields: :yielded_value, callback_name: :success)
+    #   runner = MockRunner.new(context: context, run_with: :input, yields: :yielded_value, callback_name: :success)
     #   runner.run(:input) do |on|
     #     on.success {|output| context << output }
     #   end
@@ -36,6 +36,10 @@ module Hesburgh
         @yields = options.fetch(:yields)
         @callback_name = options.fetch(:callback_name)
         @run_with = __wrap__(options.fetch(:run_with))
+
+        # Because the context may automatically be getting assigned by the
+        # controller.
+        @run_with.unshift(options[:context]) if options.key?(:context)
       end
 
       def run(*args, &block)
