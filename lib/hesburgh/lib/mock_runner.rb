@@ -24,14 +24,6 @@ module Hesburgh
         end
       end
 
-      # Raised when the actual :callback_name parameter is different than the
-      # expected
-      class CallbackNameMismatchError < RuntimeError
-        def initialize(actual: nil, expected: nil)
-          super("CallbackName Mismatch Error:\nActual: #{actual.inspect}\nExpected: #{expected.inspect}\n")
-        end
-      end
-
       def initialize(options = {})
         @yields = options.fetch(:yields)
         @callback_name = options.fetch(:callback_name)
@@ -53,8 +45,6 @@ module Hesburgh
       def method_missing(method_name, &block)
         if @callback_name.to_s == method_name.to_s
           yield(@yields)
-        else
-          raise CallbackNameMismatchError, actual: method_name, expected: @callback_name
         end
       end
 

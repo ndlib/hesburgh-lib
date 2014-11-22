@@ -12,19 +12,6 @@ module Hesburgh
         end
       end
 
-      context 'with invalid callback_name' do
-        subject { Hesburgh::Lib::MockRunner.new(run_with: :param, yields: :value, callback_name: :success) }
-        let(:container) { [] }
-        it 'raise an exception' do
-          expect do
-            subject.run(:param) do |on|
-              on.something { |arg| container.replace(arg) }
-            end
-          end.to raise_error(MockRunner::CallbackNameMismatchError)
-          expect(container).to eq([])
-        end
-      end
-
       context 'with valid callback_name and parameters' do
         context 'with a singular yield' do
           subject { Hesburgh::Lib::MockRunner.new(run_with: :param, yields: yields_value, callback_name: :success) }
