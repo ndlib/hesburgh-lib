@@ -34,21 +34,20 @@ module Hesburgh
         @run_with.unshift(options[:context]) if options.key?(:context)
       end
 
-      def run(*args, &block)
+      def run(*args, &_block)
         if @run_with == args
           yield(self)
         else
-          raise RunWithMismatchError, actual: args, expected: @run_with
+          fail RunWithMismatchError, actual: args, expected: @run_with
         end
       end
 
-      def method_missing(method_name, &block)
-        if @callback_name.to_s == method_name.to_s
-          yield(@yields)
-        end
+      def method_missing(method_name, &_block)
+        yield(@yields) if @callback_name.to_s == method_name.to_s
       end
 
       private
+
       def __wrap__(object)
         if object.nil?
           []
