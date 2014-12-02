@@ -14,8 +14,6 @@ namespace :spec do
   end
 end
 
-task default: ['spec:all']
-
 begin
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new do |t|
@@ -26,3 +24,5 @@ begin
 rescue LoadError
   puts "Unable to load rubocop. Who will enforce your styles now?"
 end
+
+task default: ['spec:travis']
