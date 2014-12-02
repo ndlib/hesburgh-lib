@@ -23,6 +23,14 @@ module Hesburgh
             end
             expect(container).to eq([:value])
           end
+
+          it 'will return the status and arg' do
+            status, value = subject.run(:param) do |on|
+              on.success { |arg| container << arg }
+            end
+            expect(status).to eq(:success)
+            expect(value).to eq(yields_value)
+          end
         end
 
         context 'with a multi-input' do
@@ -46,6 +54,15 @@ module Hesburgh
               on.success { |one, two| container << one << two }
             end
             expect(container).to eq([:value1, :value2])
+          end
+
+          it 'will return the status then each of the args' do
+            status, one, two = subject.run(:param) do |on|
+              on.success { |a, b| container << a << b }
+            end
+            expect(status).to eq(:success)
+            expect(one).to eq(yields_value[0])
+            expect(two).to eq(yields_value[1])
           end
         end
       end
