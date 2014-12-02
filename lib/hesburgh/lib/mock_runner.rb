@@ -34,9 +34,13 @@ module Hesburgh
         @run_with.unshift(options[:context]) if options.key?(:context)
       end
 
-      def run(*args, &_block)
+      def run(*args)
         if @run_with == args
-          yield(self)
+          if block_given?
+            return yield(self)
+          else
+            return @callback_name, *@yields
+          end
         else
           fail RunWithMismatchError, actual: args, expected: @run_with
         end

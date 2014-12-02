@@ -12,6 +12,17 @@ module Hesburgh
         end
       end
 
+      context 'without a callback block' do
+        subject { Hesburgh::Lib::MockRunner.new(run_with: run_with, yields: yields_value, callback_name: :success) }
+        let(:yields_value) { :value }
+        let(:run_with) { :param }
+        it 'will return the given callback and the yield values' do
+          status, value = subject.run(:param)
+          expect(status).to eq(:success)
+          expect(value).to eq(yields_value)
+        end
+      end
+
       context 'with valid callback_name and parameters' do
         context 'with a singular yield' do
           subject { Hesburgh::Lib::MockRunner.new(run_with: :param, yields: yields_value, callback_name: :success) }
