@@ -22,13 +22,13 @@ module Hesburgh
       context "calling the :other callback" do
         When(:result) { runner.callback(:other, :first, :second) }
         Then { expect(context).to have_received(:invoked).with("OTHER", :first, :second) }
-        Then { result == [:first, :second] }
+        Then { result == [:other, :first, :second] }
       end
 
       context "calling an unregistered callback" do
         When(:result) { runner.callback(:unknown, :first, :second) }
         Then { expect(context).to_not have_received(:invoked) }
-        Then { result == [:first, :second] }
+        Then { result == [:unknown, :first, :second] }
       end
     end
   end

@@ -32,7 +32,7 @@ module Hesburgh
 
       def callback(name, *args)
         @callbacks.call(name, *args)
-        args
+        return name, *args
       end
 
       def run(*_args)
