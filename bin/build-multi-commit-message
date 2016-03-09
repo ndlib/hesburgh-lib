@@ -20,3 +20,4 @@ end
 branch_name = ARGV[0] || 'master'
 command = %(git log --reverse --pretty="format:## %s%n%n@%H%n%n%b" #{branch_name}..)
 system(command + ' | pbcopy') if ENV['_system_name'] == 'OSX'
+system(command)
