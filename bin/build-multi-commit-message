@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby -wU
+
+if ARGV.grep(/^-+h(elp)?$/i).size > 0
+  $stdout.puts ""
+  $stdout.puts "$ #{File.basename(__FILE__)} [branch_name]"
+  $stdout.puts ""
+  $stdout.puts "This script generates text based on the commit messages. It uses all of the"
+  $stdout.puts "commits that have occurred since the given branch."
+  $stdout.puts ""
+  $stdout.puts "If no argument is given, the branch_name is assumed to be master."
+  $stdout.puts ""
+  $stdout.puts "Example:"
+  $stdout.puts "$ #{File.basename(__FILE__)} my-branch"
+  $stdout.puts ""
+  $stdout.puts "NOTE: On OSX, the output will also be automatically copied into your paste"
+  $stdout.puts "  buffer."
+  exit(0)
+end
+
+branch_name = ARGV[0] || 'master'
+command = %(git log --reverse --pretty="format:## %s%n%n@%H%n%n%b" #{branch_name}..)
+system(command + ' | pbcopy') if ENV['_system_name'] == 'OSX'
