@@ -47,9 +47,8 @@ module Hesburgh
       end
 
       def method_missing(method_name, &_block)
-        if @callback_name.to_s == method_name.to_s
-          return @callback_name, *yield(@yields)
-        end
+        super unless @callback_name.to_s == method_name.to_s
+        return @callback_name, *yield(@yields)
       end
 
       private
