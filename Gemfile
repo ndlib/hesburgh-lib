@@ -5,7 +5,3 @@ gemspec
 
 gem 'coveralls', require: false
 gem 'simplecov', require: false
-
-group :test do
-  gem 'rake'
-end
