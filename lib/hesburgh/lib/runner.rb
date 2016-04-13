@@ -36,7 +36,7 @@ module Hesburgh
       end
 
       def run(*_args)
-        fail NotImplementedError, ("You must define #{self.class}#run")
+        raise(NotImplementedError, "You must define #{self.class}#run")
       end
 
       private

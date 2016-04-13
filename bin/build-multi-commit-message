@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -wU
 
-if ARGV.grep(/^-+h(elp)?$/i).size > 0
+unless ARGV.grep(/^-+h(elp)?$/i).empty?
   $stdout.puts ""
   $stdout.puts "$ #{File.basename(__FILE__)} [branch_name]"
   $stdout.puts ""

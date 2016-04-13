@@ -16,7 +16,7 @@ REPOSITORY_PATH = ENV.fetch('REPOSITORY_PATH') { Dir.pwd }
 #
 # *****************************************************************************
 
-if ARGV.grep(/^-+h(elp)?$/i).size > 0
+unless ARGV.grep(/^-+h(elp)?$/i).empty?
   $stdout.puts ""
   $stdout.puts "$ #{File.basename(__FILE__)} <gem1> <gem2>"
   $stdout.puts ""
@@ -45,7 +45,7 @@ end
 GEM_NAMES = ARGV
 
 # Guard that we have a clean working directory
-if `cd #{REPOSITORY_PATH} && git status --porcelain`.strip.size > 0
+unless `cd #{REPOSITORY_PATH} && git status --porcelain`.strip.empty?
   $stderr.puts "Repository @ #{REPOSITORY_PATH} did not have a clean working directory"
   exit!(2)
 end

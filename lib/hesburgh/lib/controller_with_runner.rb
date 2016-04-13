@@ -47,16 +47,13 @@ module Hesburgh
       def runner(runner_name = nil)
         return @runner if @runner # For Dependency Injection
         runner_name = action_name.classify unless runner_name
-        if runner_container.const_defined?(runner_name)
-          runner_container.const_get(runner_name)
-        else
-          fail RunnerNotFoundError, container: runner_container, name: runner_name
-        end
+        return runner_container.const_get(runner_name) if runner_container.const_defined?(runner_name)
+        raise(RunnerNotFoundError, container: runner_container, name: runner_name)
       end
 
       # Exposed for purposes of Dependency Injection.
       def runner=(object)
-        fail(ImproperRunnerError, runner: object, method_name: :run) unless object.respond_to?(:run)
+        raise(ImproperRunnerError, runner: object, method_name: :run) unless object.respond_to?(:run)
         @runner = object
       end
 

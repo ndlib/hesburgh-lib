@@ -35,20 +35,13 @@ module Hesburgh
       end
 
       def run(*args)
-        if @run_with == args
-          if block_given?
-            return yield(self)
-          else
-            return @callback_name, *@yields
-          end
-        else
-          fail RunWithMismatchError, actual: args, expected: @run_with
-        end
+        raise RunWithMismatchError, actual: args, expected: @run_with unless @run_with == args
+        return yield(self) if block_given?
+        return @callback_name, *@yields
       end
 
       def method_missing(method_name, &_block)
-        super unless @callback_name.to_s == method_name.to_s
-        return @callback_name, *yield(@yields)
+        return @callback_name, *yield(@yields) if @callback_name.to_s == method_name.to_s
       end
 
       private

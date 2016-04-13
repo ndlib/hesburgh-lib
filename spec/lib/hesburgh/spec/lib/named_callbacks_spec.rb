@@ -5,7 +5,7 @@ module Hesburgh
   module Lib
     describe NamedCallbacks do
       let(:named_callback) { described_class.new }
-      let(:context) { Array.new }
+      let(:context) { [] }
       before do
         named_callback.my_named_callback { |*a| context.replace(a) }
       end
