@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.0]
+        ruby: [ 2.6, 2.7]
     runs-on: ubuntu-20.04
 
     steps:
@@ -21,8 +21,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Install proper bundler gem
-        run: gem install bundler
+        run: gem install bundler -v 1.17.3 
       - name: Install Ruby gems
-        run: bundle install
+        run: bundle _1.17.3_ install --without debug doc
       - name: Run rake spec tasks
         run: bundle exec rake spec:travis
