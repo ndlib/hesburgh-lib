@@ -121,7 +121,7 @@ RSpec.describe Hesburgh::Lib::HtmlScrubber do
       end
     end
   end
-  context '.build_block_scrubber' do
+  xcontext '.build_block_scrubber' do
     subject { described_class.build_block_scrubber }
     it { is_expected.to respond_to(:call) }
     {
